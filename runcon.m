@@ -58,6 +58,8 @@ for conidx = 2:length(SPM.xCon)
     xSPM = evalin('base','xSPM');
     hReg = evalin('base','hReg');
     stat.table = spm_list('List',xSPM,hReg);
+    p_fwe = sort(cell2mat(stat.table.dat(:,3)));
+    
 %     export_fig(gcf,sprintf('%s/figures/%s_%s.eps',cur_wd,SPM.xCon(conidx).name,modality_or_val));
     set(gcf,'PaperPositionMode','auto');
     print(gcf,sprintf('%s/figures/%s_%s.tif',cur_wd,SPM.xCon(conidx).name,modality_or_val),'-dtiff');
@@ -92,7 +94,8 @@ for conidx = 2:length(SPM.xCon)
         clustmax = squeeze(max(max(clusterstat,[],1),[],2));
         stat.clusters(c).clusternum = clusters(c);
         stat.clusters(c).clustersize = length(nonzeros(clusterstat(:)));
-        stat.clusters(c).clusterpval = xSPM.Pc(c);
+%         stat.clusters(c).clusterpval = xSPM.Pc(c);
+        stat.clusters(c).clusterpval = p_fwe(c);
         stat.clusters(c).tstart = find(clustmax,1,'first');
         stat.clusters(c).tstop = find(clustmax,1,'last');
         [maxval,stat.clusters(c).tmax] = max(clustmax);

@@ -6,6 +6,7 @@ loadsubj
 timeshift = 0;%600; %milliseconds
 
 param = finputcheck(varargin, { 'ylim', 'real', [], []; ...
+    'xlim', 'real', [], [-100 300]; ...
     'plotsubj', 'string', '', ''; ...
     'subcond', 'string', {'on','off'}, 'on'; ...
     'topowin', 'real', [], []; ...
@@ -31,7 +32,7 @@ switch param.modality
     case 'EEG'
         scalefactor = 1;
         if isempty(param.ylim)
-            param.ylim = [-4 4];
+            param.ylim = [-3 3];
         end
         yunits = 'uV';
     case 'MEGMAG'
@@ -54,7 +55,7 @@ switch param.modality
         yunits = 'fT/mm';
 end
 
-filesuffix = '_cond';
+filesuffix = '_comb';
 chanlocfile = sprintf('%s.xyz',param.modality);
 
 file2load = sprintf('%s%s%s.mat',filepath,subjname,filesuffix);
@@ -146,7 +147,9 @@ for c = plotcond
         'plottimes',plottime-timeshift);
     set(gcf,'Color','white');
     h_axes = get(gcf,'Children');
-    ylabel(h_axes(4),sprintf('Field intensity (%s)', yunits));
-    set(suptitle(figname),'FontSize',16,'FontWeight','bold','Interpreter','none');
-    export_fig(gcf,sprintf('figures/%s.pdf',figname));
+    set(h_axes(4),'XLim',param.xlim,'FontSize',16,'FontName','Helvetica');
+    xlabel(h_axes(4),sprintf('Time relative to fifth tone (%s)', yunits));
+    ylabel(h_axes(4),sprintf('Amplitude (%s)', yunits));
+%     set(suptitle(figname),'FontSize',16,'FontWeight','bold','Interpreter','none');
+    export_fig(gcf,sprintf('figures/%s.tif',figname));
 end
