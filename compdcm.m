@@ -8,9 +8,9 @@ dcmdir = 'DCM-final/';
 timewin = [0 300];
 % timewin = [0 150];
 
-modality = 'EEG';
+% modality = 'EEG';
 % modality = 'MEG';
-% modality = 'MEGPLANAR';
+modality = 'MEGPLANAR';
 
 
 % % compare attend-auditory local deviants vs standards
@@ -26,9 +26,9 @@ convec = [1 0];
 numuniqmod = length(model);
 
 %------------------------------------------------------------------------
-sesstypes = {'global','global','visual','visual'};
-conntypes = {'none','f','b','fbl','fbu','bfl','bfu','fb'};
-numuniqmod = length(conntypes);
+% sesstypes = {'global','global','visual','visual'};
+% conntypes = {'none','f','b','fbl','fbu','bfl','bfu','fb'};
+% numuniqmod = length(conntypes);
 % conidx = 3;
 
 % compare attend-auditory local deviants vs standards
@@ -36,8 +36,8 @@ numuniqmod = length(conntypes);
 % winmodidx = 6;
 
 % % compare attend-auditory omissions vs. omission controls
-trialtypes = {'od','oc','od','oc'};
-winmodidx = 18;
+% trialtypes = {'od','oc','od','oc'};
+% winmodidx = 18;
 %------------------------------------------------------------------------
 
 selmodels = 1:numuniqmod;
@@ -100,10 +100,15 @@ load(sprintf('%s%s_BMS.mat',filepath,fileprefix),'BMS');
 winmodidx = find(BMS.DCM.ffx.model.post == max(BMS.DCM.ffx.model.post));
 fprintf('Generating DCM average.\n');
 avgfiles = cell(20,1);
+paramcorr = [];
 for subjidx = 1:size(subjlist,1)
     dcmfiles = bmsbatch{1}.spm.dcm.bms.inference.sess_dcm{subjidx}.dcmmat;
     avgfiles{subjidx} = dcmfiles{winmodidx};
+    load(avgfiles{subjidx});
+    paramcorr = [paramcorr;nonzeros(DCM.Ep.B{1}(:))];
 end
+
+paramcorr
 
 spm_dcm_average(avgfiles,fileprefix);
 movefile(sprintf('DCM_avg_%s.mat',fileprefix),sprintf('%sDCM_avg_%s.mat',filepath,fileprefix));

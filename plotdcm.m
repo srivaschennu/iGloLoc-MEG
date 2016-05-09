@@ -71,8 +71,10 @@ for from = 1:size(DCM.A{1},2)
         if DCM.B{1}(to,from)
             if isfield(DCM,'stats')
                 textstr = sprintf('%.2f (%.2f)',DCM.Pp.B{1}(to,from),DCM.stats.pvalB(to,from));
-            elseif isfield(DCM,'Pp')
-                textstr = sprintf('%.2f',DCM.Pp.B{1}(to,from));
+%             elseif isfield(DCM,'Pp')
+%                 textstr = sprintf('%.2f',DCM.Pp.B{1}(to,from));
+            elseif isfield(DCM,'Ep')
+                textstr = sprintf('%.2f',DCM.Ep.B{1}(to,from));
             end
             
             if to ~= from
