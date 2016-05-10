@@ -8,9 +8,9 @@ dcmdir = 'DCM-final/';
 timewin = [0 300];
 % timewin = [0 150];
 
-% modality = 'EEG';
+modality = 'EEG';
 % modality = 'MEG';
-modality = 'MEGPLANAR';
+% modality = 'MEGPLANAR';
 
 
 % % compare attend-auditory local deviants vs standards
@@ -65,6 +65,8 @@ for subjidx = 1:size(subjlist,1)
                 dcmfiles{modidx,1} = sprintf('%s%s%s_%s-%s_%d-%d_%s_DCM%d.mat',...
                     filepath,dcmdir,subjname,condnames{1},condnames{2},timewin(1),timewin(2),modality,selmodels(modidx));
             end
+            load(dcmfiles{modidx,1});
+            allFs(subjidx,modidx) = DCM.F;
         end
         bmsbatch{1}.spm.dcm.bms.inference.sess_dcm{subjidx}.dcmmat = dcmfiles;
     end
@@ -92,6 +94,11 @@ end
 movefile([filepath 'BMS.mat'],sprintf('%s%s_BMS.mat',filepath,fileprefix));
 movefile([filepath 'model_space.mat'],sprintf('%s%s_model_space.mat',filepath,fileprefix));
 
+winmodidx = 6;
+allFs = allFs - repmat(min(allFs,[],2),1,size(allFs,2));
+sortedFs = sort(allFs(:,setdiff(1:size(allFs,2),winmodidx)),2,'descend');
+figure; hist(allFs(:,winmodidx)-sortedFs(:,1));
+
 close(gcf);
 close(gcf);
 
@@ -100,15 +107,10 @@ load(sprintf('%s%s_BMS.mat',filepath,fileprefix),'BMS');
 winmodidx = find(BMS.DCM.ffx.model.post == max(BMS.DCM.ffx.model.post));
 fprintf('Generating DCM average.\n');
 avgfiles = cell(20,1);
-paramcorr = [];
 for subjidx = 1:size(subjlist,1)
     dcmfiles = bmsbatch{1}.spm.dcm.bms.inference.sess_dcm{subjidx}.dcmmat;
     avgfiles{subjidx} = dcmfiles{winmodidx};
-    load(avgfiles{subjidx});
-    paramcorr = [paramcorr;nonzeros(DCM.Ep.B{1}(:))];
 end
-
-paramcorr
 
 spm_dcm_average(avgfiles,fileprefix);
 movefile(sprintf('DCM_avg_%s.mat',fileprefix),sprintf('%sDCM_avg_%s.mat',filepath,fileprefix));
