@@ -73,15 +73,11 @@ if exist('ylimits','var')
     ylim(ylimits);
 end
 ylabel('Relative log-evidence');
-% legend('With lateral IPC connections','Without lateral IPC connections','Location','NorthWest');
 export_fig(gcf,sprintf('figures/%s_LE.eps',fileprefix));
 close(gcf);
 
 figure('Color','white');
-figpos = get(gcf,'Position');
-figpos(3) = figpos(3)*2;
-figpos(4) = figpos(4)*2/3;
-% set(gcf,'Position',figpos);
+
 bardata = BMS.DCM.ffx.model.post();
 bar(bardata);
 set(gca,'XLim',[0 numuniqmod+1],'YLim',[0 1],'XTick',xtick,'XTickLabel',xticklabels,'FontSize',fontsize);

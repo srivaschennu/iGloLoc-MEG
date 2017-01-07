@@ -22,29 +22,27 @@ models2run = 1:length(model);
 
 %------------------------------------------------------------------------
 
-convec = [
-    1 -1  1 -1 %standards vs. deviants
-%     1  1 -1 -1 %attend-auditory vs. attend-visual
-    1 -1 -1  1 %attention vs. deviance interaction
-    ];
-
-sesstypes = {'global','global','visual','visual'};
-
-conntypes = {'none','f','b','fbl','fbu','bfl','bfu','fb'};
-
-% compare attend-auditory local deviants vs standards
-% trialtypes = {'ld','ls','ld','ls'};
-
-% compare attend-auditory omissions vs. omission controls
-trialtypes = {'od','oc','od','oc'};
-
-model = dcmmodels(convec);
+% convec = [
+%     1 -1  1 -1 %standards vs. deviants
+%     1 -1 -1  1 %attention vs. deviance interaction
+%     ];
+%
+% sesstypes = {'global','global','visual','visual'};
+%
+% conntypes = {'none','f','b','fbl','fbu','bfl','bfu','fb'};
+%
+% % compare attend-auditory local deviants vs standards
+% % trialtypes = {'ld','ls','ld','ls'};
+%
+% % compare attend-auditory omissions vs. omission controls
+% trialtypes = {'od','oc','od','oc'};
+%
+% model = dcmmodels(convec);
 
 %------------------------------------------------------------------------
 
 filesuffix = '_cond';
 timewin = [0 300];
-% timewin = [0 150];
 
 modality = 'EEG';
 % modality = 'MEG';
@@ -125,29 +123,16 @@ for n = models2run
     DCM.A = model(n).A;
     DCM.C = model(n).C;
     
-%     for c = 1:size(convec,1)
-        
-        DCM.xU.X = convec';%(c,:)';
-        DCM.B = model(n).B;%(c);
-%         if size(convec,1) > 1
-%             DCM.name = sprintf('%s_con%d',modelnames{n},c);
-%         end
-        
-%         if exist([DCM.name '.mat'],'file')
-%             fprintf('\n%s.mat exists. Skipping\n',DCM.name);
-%             continue;
-%         end
-        
-        fprintf('\nSaving model %d to %s.mat.\n',n,DCM.name);
-        
-        tic
-        spm_dcm_erp(DCM);
-        fprintf('\nModel %d took %.1f minutes.\n',n,toc/60);
-        
-%         plotdcm(DCM);
-%         export_fig(gcf,sprintf('figures/%s_%d.pdf','dcmmodels',n));
-%         close(gcf);
-%     end
+    DCM.xU.X = convec';
+    DCM.B = model(n).B;
+    
+    fprintf('\nSaving model %d to %s.mat.\n',n,DCM.name);
+    
+    tic
+    spm_dcm_erp(DCM);
+    fprintf('\nModel %d took %.1f minutes.\n',n,toc/60);
+    
+    
 end
 
 function model = setupmodel(model,conntype,convec)

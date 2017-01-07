@@ -6,7 +6,6 @@ loadpaths
 dcmdir = 'DCM-final/';
 
 timewin = [0 300];
-% timewin = [0 150];
 
 modality = 'EEG';
 % modality = 'MEG';
@@ -22,7 +21,7 @@ trialtypes = {'ld','ls'};
 % trialtypes = {'od','oc'};
 
 convec = [1 0];
-[model,family] = dcmmodels(convec);
+model = dcmmodels(convec);
 numuniqmod = length(model);
 
 %------------------------------------------------------------------------
@@ -76,9 +75,6 @@ fprintf('\n');
 bmsbatch{1}.spm.dcm.bms.inference.model_sp = {''};
 bmsbatch{1}.spm.dcm.bms.inference.load_f = {''};
 bmsbatch{1}.spm.dcm.bms.inference.method = 'FFX';
-% if exist('family','var')
-%     bmsbatch{1}.spm.dcm.bms.inference.family_level.family = family;
-% end
 bmsbatch{1}.spm.dcm.bms.inference.bma.bma_no = 0;
 bmsbatch{1}.spm.dcm.bms.inference.verify_id = 0;
 
