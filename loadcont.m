@@ -1,7 +1,7 @@
 condlists = {
 %     %sensor level
-%     {'ld','ls','gd','gs','od','oc'} [50 650]
-    {'x2','xc','y2','yc'} [50 650]
+    {'ld','ls','gd','gs','od','oc'} [50 650]
+%     {'x2','xc','y2','yc'} [50 650]
 
 %     %source level
 %     {'ld','ls'} [100 100]
@@ -13,24 +13,24 @@ condlists = {
 %     {'ld','ls','gd','gs','od','oc','x1','x2','x3','y1','y2','y3','xc','yc'} [-200 700]
     };
 
-contrasts = {
-    struct('name','x-y','type','F','c', [1  -1   -1  1  1  -1   -1  1  ])
-};
-
 % contrasts = {
-%     struct('name','global_ld-global_ls','type','F','c', [1   -1  0   0   0   0   0   0   0   0   0   0 ])
-%     struct('name','global_gd-global_gs','type','F','c', [0   0   1   -1  0   0   0   0   0   0   0   0 ])
-%     struct('name','global_od-global_oc','type','F','c', [0   0   0   0   1   -1  0   0   0   0   0   0 ])
-%     struct('name','visual_ld-visual_ls','type','F','c', [0   0   0   0   0   0   1   -1  0   0   0   0 ])
-%     struct('name','visual_gd-visual_gs','type','F','c', [0   0   0   0   0   0   0   0   1   -1  0   0 ])
-%     struct('name','visual_od-visual_oc','type','F','c', [0   0   0   0   0   0   0   0   0   0   1   -1])
-%     struct('name','local_dev-local-std',   'type','F','c', [1   -1  0   0   0   0   1   -1  0   0   0   0 ])
-%     struct('name','global_dev-global_std', 'type','F','c', [0   0   1   -1  0   0   0   0   1   -1  0   0 ])
-%     struct('name','omission-omission_ctrl','type','F','c', [0   0   0   0   1   -1  0   0   0   0   1   -1])
-%     struct('name','auditory-visual_local',    'type','F','c', [1   1   0   0   0   0   -1  -1  0   0   0   0 ])
-%     struct('name','auditory-visual_global',   'type','F','c', [0   0   1   1   0   0   0   0   -1  -1  0   0 ])
-%     struct('name','auditory-visual_omission', 'type','F','c', [0   0   0   0   1   1   0   0   0   0   -1  -1])
-%     struct('name','attention-local_interaction',   'type','F','c', [1   -1  0   0   0   0   -1  1   0   0   0   0 ])
-%     struct('name','attention-global_interaction',  'type','F','c', [0   0   1   -1  0   0   0   0   -1  1   0   0 ])
-%     struct('name','attention-omission_interaction','type','F','c', [0   0   0   0   1   -1  0   0   0   0   -1  1 ])
-%     };
+%     struct('name','x-y','type','F','c', [1  -1   -1  1  1  -1   -1  1  ])
+% };
+
+contrasts = {
+    struct('name','global_ld-global_ls','type','F','c', [1   -1  0   0   0   0   0   0   0   0   0   0 ])
+    struct('name','global_gd-global_gs','type','F','c', [0   0   1   -1  0   0   0   0   0   0   0   0 ])
+    struct('name','global_od-global_oc','type','F','c', [0   0   0   0   1   -1  0   0   0   0   0   0 ])
+    struct('name','visual_ld-visual_ls','type','F','c', [0   0   0   0   0   0   1   -1  0   0   0   0 ])
+    struct('name','visual_gd-visual_gs','type','F','c', [0   0   0   0   0   0   0   0   1   -1  0   0 ])
+    struct('name','visual_od-visual_oc','type','F','c', [0   0   0   0   0   0   0   0   0   0   1   -1])
+    struct('name','local_dev-local-std',   'type','F','c', [1   -1  0   0   0   0   1   -1  0   0   0   0 ])
+    struct('name','global_dev-global_std', 'type','F','c', [0   0   1   -1  0   0   0   0   1   -1  0   0 ])
+    struct('name','omission-omission_ctrl','type','F','c', [0   0   0   0   1   -1  0   0   0   0   1   -1])
+    struct('name','auditory-visual_local',    'type','F','c', [1   1   0   0   0   0   -1  -1  0   0   0   0 ])
+    struct('name','auditory-visual_global',   'type','F','c', [0   0   1   1   0   0   0   0   -1  -1  0   0 ])
+    struct('name','auditory-visual_omission', 'type','F','c', [0   0   0   0   1   1   0   0   0   0   -1  -1])
+    struct('name','attention-local_interaction',   'type','F','c', [1   -1  0   0   0   0   -1  1   0   0   0   0 ])
+    struct('name','attention-global_interaction',  'type','F','c', [0   0   1   -1  0   0   0   0   -1  1   0   0 ])
+    struct('name','attention-omission_interaction','type','F','c', [0   0   0   0   1   -1  0   0   0   0   -1  1 ])
+    };
