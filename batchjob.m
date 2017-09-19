@@ -43,7 +43,7 @@ tasklist = {
 %     'subcond'         'subjlist(subjidx,1)'
 %     'srcrecon'        '{}'
 %     'grandaverage'        '{}'
-    'genimg'          '{subjlist{subjidx,1} ''sensor'' ''EEG''}'
+%    'genimg'          '{subjlist{subjidx,1} ''sensor'' ''EEG''}'
 %     'genimg'          '{subjlist{subjidx,1} ''source'' 3}'
 %     'rundcm'   'subjlist(subjidx,1)'
     };
